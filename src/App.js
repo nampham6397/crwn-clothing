@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import './App.css';
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
+import CheckoutPage from "./pages/checkout/checkout.component";
 import {SignInAndSignUpPage} from "./pages/signin-and-signup/sign-in-and-sign-up.component";
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
@@ -22,7 +23,7 @@ class App extends React.Component{
               const userRef = await createUserProfileDocument(userAuth);
 
               userRef.onSnapshot(snapShot => {
-                  this.props.setCurrentUser({
+                  setCurrentUser({
                           id: snapShot.id,
                           ...snapShot.data()
                   })
@@ -44,6 +45,7 @@ class App extends React.Component{
               <Switch>
                   <Route exact component={HomePage} path='/' />
                   <Route component={ShopPage} path='/shop' />
+                  <Route exact path='/checkout' component={CheckoutPage} />
                   <Route
                       exact
                       path='/signin'
